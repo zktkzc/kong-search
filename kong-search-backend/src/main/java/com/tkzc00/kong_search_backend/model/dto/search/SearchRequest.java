@@ -12,4 +12,6 @@ public class SearchRequest extends PageRequest implements Serializable {
     private static final long serialVersionUID = 6786362333031005822L;
 
     private String searchText;
+
+    private String type;
 }

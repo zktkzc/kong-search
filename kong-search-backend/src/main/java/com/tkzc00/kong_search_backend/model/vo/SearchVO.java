@@ -1,5 +1,6 @@
 package com.tkzc00.kong_search_backend.model.vo;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tkzc00.kong_search_backend.model.entity.Picture;
 import lombok.Data;
 
@@ -18,4 +19,5 @@ public class SearchVO implements Serializable {
     private List<UserVO> userList;
     private List<Picture> pictureList;
     private List<PostVO> postList;
+    private List<Object> dataList;
 }
