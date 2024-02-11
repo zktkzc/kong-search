@@ -11,7 +11,11 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <a-list item-layout="horizontal" :data-source="props.userList">
+  <a-list
+    item-layout="horizontal"
+    :grid="{ gutter: 16, column: 4 }"
+    :data-source="props.userList"
+  >
     <template #renderItem="{ item }">
       <a-list-item>
         <a-card hoverable style="width: 240px">
