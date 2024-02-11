@@ -27,26 +27,14 @@ watchEffect(() => {
   activeKey.value = (route.params.category as string) || "article";
 });
 const loadData = (params: any) => {
-  const postQuery = {
+  const query = {
     ...params,
     searchText: params.text,
   };
-  myAxios.post("/post/list/page/vo", postQuery).then((res: any) => {
-    postList.value = res.records;
-  });
-  const userQuery = {
-    ...params,
-    userName: params.text,
-  };
-  myAxios.post("/user/list/page/vo", userQuery).then((res: any) => {
-    userList.value = res.records;
-  });
-  const pictureQuery = {
-    ...params,
-    searchText: params.text,
-  };
-  myAxios.post("/picture/list/page/vo", pictureQuery).then((res: any) => {
-    pictureList.value = res.records;
+  myAxios.post("/search/all", query).then((res: any) => {
+    postList.value = res.postList;
+    pictureList.value = res.pictureList;
+    userList.value = res.userList;
   });
 };
 loadData(initSearchParams);

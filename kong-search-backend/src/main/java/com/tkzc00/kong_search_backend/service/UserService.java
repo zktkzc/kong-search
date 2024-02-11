@@ -1,6 +1,7 @@
 package com.tkzc00.kong_search_backend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tkzc00.kong_search_backend.model.dto.user.UserQueryRequest;
 import com.tkzc00.kong_search_backend.model.entity.User;
@@ -105,4 +106,5 @@ public interface UserService extends IService<User> {
      */
     QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 
+    Page<UserVO> listUserVOByPage(UserQueryRequest userQueryRequest);
 }

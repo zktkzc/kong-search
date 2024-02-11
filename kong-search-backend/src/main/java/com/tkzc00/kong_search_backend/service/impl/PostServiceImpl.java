@@ -2,6 +2,7 @@ package com.tkzc00.kong_search_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -301,6 +302,15 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         }).collect(Collectors.toList());
         postVOPage.setRecords(postVOList);
         return postVOPage;
+    }
+
+    @Override
+    public Page<PostVO> listPostVOByPage(PostQueryRequest postQueryRequest, HttpServletRequest request) {
+        long current = postQueryRequest.getCurrent();
+        long size = postQueryRequest.getPageSize();
+        Page<Post> postPage = page(new Page<>(current, size),
+                getQueryWrapper(postQueryRequest));
+        return getPostVOPage(postPage, request);
     }
 
 }

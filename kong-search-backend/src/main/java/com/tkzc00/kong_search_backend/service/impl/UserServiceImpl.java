@@ -2,6 +2,7 @@ package com.tkzc00.kong_search_backend.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tkzc00.kong_search_backend.common.ErrorCode;
 import com.tkzc00.kong_search_backend.constant.CommonConstant;
@@ -13,6 +14,7 @@ import com.tkzc00.kong_search_backend.model.enums.UserRoleEnum;
 import com.tkzc00.kong_search_backend.model.vo.LoginUserVO;
 import com.tkzc00.kong_search_backend.model.vo.UserVO;
 import com.tkzc00.kong_search_backend.service.UserService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -233,5 +235,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
                 sortField);
         return queryWrapper;
+    }
+
+    @Override
+    public Page<UserVO> listUserVOByPage(UserQueryRequest userQueryRequest) {
+        long current = userQueryRequest.getCurrent();
+        long size = userQueryRequest.getPageSize();
+        Page<User> userPage = page(new Page<>(current, size),
+                getQueryWrapper(userQueryRequest));
+        Page<UserVO> userVOPage = new Page<>(current, size, userPage.getTotal());
+        List<UserVO> userVO = getUserVO(userPage.getRecords());
+        userVOPage.setRecords(userVO);
+        return userVOPage;
     }
 }
