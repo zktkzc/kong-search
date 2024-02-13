@@ -1,4 +1,4 @@
-package com.tkzc00.kong_search_backend.job;
+package com.tkzc00.kong_search_backend.job.once;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONArray;

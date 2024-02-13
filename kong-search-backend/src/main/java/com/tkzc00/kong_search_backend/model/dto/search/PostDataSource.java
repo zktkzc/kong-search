@@ -3,10 +3,10 @@ package com.tkzc00.kong_search_backend.model.dto.search;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tkzc00.kong_search_backend.datasource.DataSource;
 import com.tkzc00.kong_search_backend.model.dto.post.PostQueryRequest;
+import com.tkzc00.kong_search_backend.model.entity.Post;
 import com.tkzc00.kong_search_backend.model.vo.PostVO;
 import com.tkzc00.kong_search_backend.service.PostService;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -29,7 +29,8 @@ public class PostDataSource implements DataSource<PostVO> {
         postQueryRequest.setSearchText(searchText);
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
-        return postService.listPostVOByPage(postQueryRequest, request);
+        Page<Post> postPage = postService.searchFromEs(postQueryRequest);
+        return postService.getPostVOPage(postPage, request);
     }
 }
 
